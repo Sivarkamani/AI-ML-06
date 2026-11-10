@@ -210,6 +210,11 @@ GROUP BY is used as an aggregation function - it groups the data together for an
 HAVING is then used as a condition inside that aggregation function.
 sample code for group by and having
 
+SELECT customer_id, sum(amount) as total_payment 
+FROM sakila.payment
+group by customer_id
+having sum(amount) > 100 and customer_id between 1 and 100;
+
 Difference between WHERE and HAVING, since both are filtering based on a condition, on a structural level, is that HAVING filters after aggregation is done, whereas WHERE is before any aggregation is performed, i.e., on the row level.
 
 Order of execution
@@ -243,6 +248,78 @@ Self join - Table joining with itself.
 Refer to the joins.sql file for more info with examples. Below table is used in those examples.
 
 different types of joins
+
+-- INNER JOIN
+-------------
+-- Returns matching rows from both tables
+
+SELECT u.user_name, o.order_id
+FROM joins.users u
+INNER JOIN joins.orders o ON u.user_id = o.user_id;
+
+ -- LEFT JOIN
+------------
+-- Returns all users even if they don't have orders
+
+SELECT u.user_name, o.order_id
+FROM joins.users u
+LEFT JOIN joins.orders o ON u.user_id = o.user_id;
+
+#unmatched 
+
+SELECT u.user_name, o.order_id
+FROM joins.users u
+LEFT JOIN joins.orders o ON u.user_id = o.user_id
+where o.user_id is null;
+
+-- RIGHT JOIN
+-------------
+-- Returns all orders even if they don't match a user
+
+SELECT u.user_name, o.order_id
+FROM joins.users u
+RIGHT JOIN joins.orders o ON u.user_id = o.user_id;
+
+-- FULL OUTER JOIN (not directly supported in MySQL)
+-----------------------------------------------------
+-- Simulated using UNION of LEFT and RIGHT
+
+SELECT u.user_name, o.order_id
+FROM joins.users u
+LEFT JOIN joins.orders o ON u.user_id = o.user_id
+UNION
+SELECT u.user_name, o.order_id
+FROM joins.users u
+RIGHT JOIN joins.orders o ON u.user_id = o.user_id;
+
+-- CROSS JOIN
+-------------
+-- Returns Cartesian product (every user with every order)
+
+SELECT u.user_name, o.order_id
+FROM joins.users u
+CROSS JOIN joins.orders o;
+
+
+
+-- SELF JOIN
+------------
+-- Users and their friends (mutual or one-way)
+
+SELECT u.user_name AS user, f.user_name AS friend
+FROM joins.users u
+JOIN joins.friendships fs ON u.user_id = fs.user_id
+JOIN joins.users f ON fs.friend_id = f.user_id;
+
+
+
+-----------------
+#to exclude 
+SELECT o.order_id, o.user_id, u.user_name
+FROM joins.orders o
+LEFT JOIN joins.users u ON o.user_id = u.user_id
+where u.user_id is null;
+
 
 ## 11/02/2026 - Day 05
 Sub-Query - this section will be refined later
@@ -312,6 +389,8 @@ WITH RECURSIVE cte_name AS
 --anchor member - runs once - initiates the first number - the starting point of the recursion
 
 UNION ALL
+
+## Day07 - 11/04/26
 
 --recursive member - runs repeatedly - references cte_name
 )
