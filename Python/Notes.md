@@ -1622,5 +1622,331 @@ words = ["ruchi", 'Nikhil', 'phoebee','swapna']
 long_words = list(filter(lambda word: len(word)>6, words))
 print(long_words)
 
+# Day 14/11 
+# File Operations in Python
+## Working with Text Files
+# Writing to a text file
+with open(r"/Users/ruchikkota/Desktop/Amar/python/notes/sample.txt", "w") as f:
+    f.write("Hello, this is a sample text file.\n")
+    f.write("It has multiple lines.\n")
+    f.write("hi hello world\n")
+    f.write('hello this is python testing file operations commands')
+
+# Reading from a text file
+with open(r"/Users/ruchikkota/Desktop/Amar/python/notes/sample.txt", "r") as f:
+    content = f.read()
+    print("File content:")
+    print(content)
+# Reading line-by-line
+with open(r"/Users/ruchikkota/Desktop/Amar/python/notes/example.txt", "r") as f:
+    for line in f:
+        print("Line:", line.strip())
+with open("/Users/ruchikkota/Desktop/Amar/python/notes/example.txt", "w") as f:
+    # f.write("Hello, this is a sample text file.\n")
+    # f.write("It has multiple lines.\n")
+    # f.write("hi hello world\n")
+    # f.write("am joey\n")
+    f.write('this is boring sessions')
+with open("example.txt", "r") as file:
+    content = file.read()
+    print(content)
+
+# Append
+# Adds content at the end of file without erasing existing data.
+
+with open("/Users/ruchikkota/Desktop/Amar/python/notes/example.txt", "a") as file:
+    file.write("Line 5: This is appended.\n")
+    file.write("Line 6: This is python session 5\n")
+
+#first 10 charc
+with open("example.txt", "r") as file:
+    print("First 10 characters:", file.read(55))
+
+# t = 3
+# with open("example.txt", "r") as file:
+#     for i in range(t-1):
+#         file.readline()
+
+#     sp = file.readline()
+
+# print(sp)
+
+#read line by line
+with open("example.txt", "r") as file:
+    print("Line 1:", file.readline().strip())
+    print("Line 2:", file.readline().strip())
+    print("Line 3:", file.readline().strip())
+
+#into list
+with open("example.txt", "r") as file:
+    lines = file.readlines()
+    print(lines)
+#copy file 
+with open("example.txt", "r") as src, open("copy_sample.txt", "w") as dest,open("copy_sample1.txt", "w") as dest1:
+    for line in src:
+        dest.write(line)
+        dest1.write(line)
+        
+
+
+with open(r"copy_sample.txt", "r") as f:
+    content = f.read()
+    print("File content:")
+    print(content)
+
+with open("/Users/ruchikkota/Desktop/Amar/python/notes/example.txt", "r+") as file:
+    content = file.read()
+    file.seek(35)
+    file.write("chandler bing")
+## Working with Excel Files (.xlsx)
+# CSV, EXCEL, JSON, Parquet 
+
+import pandas as pd
+
+# Sample data
+data = {
+    "Name": ["Alice", "Bob", "Charlie", 'ruchik','sushma','Thauja','max','karthik','gibrish','joe','het'],
+    "Marks": [85, 90, 78,87,11,44,0,21,55,1,87]
+}
+df = pd.DataFrame(data)
+# df2 = pd.read_csv()
+# df3 = pd.read_excel()
+# df4 = pd.read_parquet()
+# df5 = pd.read_json)()
+
+df
+
+
+# Writing to an Excel file
+df.to_excel("students.xlsx", index=True)
+# df.to_csv("students.csv", index=False)
+# df.to_parquet("students.parquet", index=False)
+
+# # Reading from an Excel file
+df_read = pd.read_excel("students.xlsx")
+print("Data from Excel:")
+print(df_read)
+#pdf files ----> 1. system generated pdf files,  scannneddigital pdfs 
+
+#pymupdf    -- py lib to read content from pdf files
+#pdf plumber  --  """""""""""""""""
+
+# for digital pdf use the below  libraries
+#docAI -----> 
+
+# Modules and Libraries
+Modules in Python are simply Python files with the .py extension, which implement a set of functions. Modules are imported from other modules using the import command. Before you go ahead and import modules, check out the full list of built-in modules in the Python Standard library.
+
+When a module is loaded into a running script for the first time, it is initialized by executing the code in the module once. If another module in your code imports the same module again, it will not be loaded twice but once only - so local variables inside the module act as a "singleton" - they are initialized only once.
+
+If we want to import module math,  we simply import the module:
+## Exploring built-in modules
+
+While exploring modules in Python, two important functions come in handy - the dir and help functions. dir functions show which functions are implemented in each module. Let us see the below example and understand better.
+# import the library
+import math
+# use it (ceiling rounding)
+print(math.ceil(25.7))
+print(math.floor(25.7))
+print(math.sqrt(16))       
+print(math.factorial(5))  
+print(math.pi)            
+import random
+
+print(random.randint(1, 10))         
+print(random.choice(['a', 'b', 'c']))
+
+from datetime import datetime
+
+now = datetime.now()
+print("Current Time:", now.strftime("%Y-%m-%d %H:%M:%S"))
+
+
+import os
+
+print(os.getcwd())  # Get current working directory
+print(os.listdir()) # List files in current directory
+
+import sys
+
+print(sys.version)  # Python version
+print(sys.path)     # List of import paths
+
+import statistics
+
+data = [10, 20, 30, 40,50,70]
+print(statistics.mean(data))  
+print(statistics.median(data))  
+
+print(dir(math))
+When we find the function in the module we want to use, we can read about it more using the help function, inside the Python interpreter:
+help(math.floor)
+# This is mymath.py (our custom module)
+
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a - b
+
+    
+
+# main.py
+import mymath
+
+print(mymath.add(5, 3))       # Output: 8
+print(mymath.subtract(5, 3))  # Output: 2
+
+# Errors and Exception Handling
+
+In this section, we will learn about Errors and Exception Handling in Python. You've might have definitely encountered errors by this point in the course. For example:
+try:
+    printf(Hello)
+except:
+   print('syntax issue')
+Note how we get a SyntaxError, with the further description that it was an End of Line Error (EOL) while scanning the string literal. This is specific enough for us to see that we forgot a single quote at the end of the line. Understanding of these various error types will help you debug your code much faster. 
+
+This type of error and description is known as an Exception. Even if a statement or expression is syntactically correct, it may cause an error when an attempt is made to execute it. Errors detected during execution are called exceptions and are not unconditionally fatal.
+
+You can check out the full list of built-in exceptions [here](https://docs.python.org/2/library/exceptions.html). Now, let's learn how to handle errors and exceptions in our own code.
+## try and except
+
+The basic terminology and syntax used to handle errors in Python is the **try** and **except** statements. The code which can cause an exception to occur is put in the *try* block and the handling of the exception are the implemented in the *except* block of code. The syntax form is:
+
+    try:
+       You do your operations here...
+       ...
+    except ExceptionI:
+       If there is ExceptionI, then execute this block.
+    except ExceptionII:
+       If there is ExceptionII, then execute this block.
+       ...
+    else:
+       If there is no exception then execute this block. 
+
+Using just except, we can check for any exception: To understand better let's check out a sample code that opens and writes a file:
+try:
+    f = open('testfile.txt','w')
+    f.write('Test write this')
+except IOError:
+    # This will only check for an IOError exception and then execute this print statement
+   print("Error: Could not find file or read data")
+else:
+   print("Content written successfully")
+   f.close()
+Now, let's see what happens when we don't have write permission? (opening only with 'r'):
+f = open('testfile.txt','r')
+f.write('Test write this')
+print("fsfsfsfsf")
+try:
+    f = open('testfile.txt','r')
+    f.write('Test write this')
+except IOError:
+    # This will only check for an IOError exception and then execute this print statement
+   print("Error: you are opening file in read mode and writing the data")
+else:
+   print("Content written successfully")
+   f.close()
+Notice, how we only printed a statement! The code still ran and we were able to continue doing actions and running code blocks. This is extremely useful when you have to account for possible input errors in your code. You can be prepared for the error and keep running code, instead of your code just breaking as we saw above.
+
+We could have also just said except: if we weren't sure what exception would occur. For example:
+Now, we don't actually need to memorize the list of exception types! Now what if we keep wanting to run code after the exception occurred? This is where **finally** comes in.
+##finally
+The finally: Block of code will always be run regardless if there was an exception in the try code block. The syntax is:
+
+    try:
+       Code block here
+       ...
+       Due to any exception, this code may be skipped!
+    finally:
+       This code block would always be executed.
+
+For example:
+try:
+   f = open("testfile.txt", "w")
+   f.write("Test write statement")
+finally:
+   print("Always execute finally code blocks")
+We can use this in conjunction with except. Let's see a new example that will take into account a user putting in the wrong input:
+def askint():
+        try:
+            val = int(input("Please enter an integer: "))
+        except:
+            print("Looks like you did not enter an integer!")
+            
+        finally:
+            print("Finally, I executed!")
+        # print(val)       
+askint()
+Check how we got an error when trying to print val (because it was properly assigned). Let's find the right solution by asking the user and checking to make sure the input type is an integer:
+def askint():
+        try:
+            val = int(input("Please enter an integer: "))
+        except:
+            print("Looks like you did not enter an integer!")
+            try:
+                val = int(input("Try again-Please enter an integer: "))
+            except:
+                print("handle it ")
+        finally:
+            print("Finally, I executed!")
+        #print(val)
+askint()
+### Hmmm...that only did one check. How can we continually keep checking? We can use a while loop!
+## Database connectivity and operations using Python.
+
+For Example, the following is the example of connecting with MySQL database "my_database1" and creating table grades1 and inserting values inside it.
+#!/usr/bin/python
+
+import sqlite3
+#SQLite is a database engine or python library that keeps a whole database in one ordinary file on your computer, like machinemind.db. There's no server to install, start, or log in to. Your program reads and writes that file directly.
+#connecting with the database.
+db = sqlite3.connect("my_database3.db")
+# Drop table if it already exist using execute() method.
+db.execute("drop table if exists grades1")
+# Create table as per requirement
+db.execute("create table grades1(id int, name text, score int)")
+#inserting values inside the created table
+db.execute("insert into grades1(id, name, score) values(101, 'John',99 )")
+db.execute("insert into grades1(id, name, score) values(102, 'Gary',90 )")
+db.execute("insert into grades1(id, name, score) values(103, 'James', 80 )")
+db.execute("insert into grades1(id, name, score) values(104, 'Cathy', 85 )")
+db.execute("insert into grades1(id, name, score) values(105, 'ruchik',95 )")
+
+db.commit()
+
+results = db.execute("select * from grades1 order by id")
+for row in results:
+    print(row)
+print("-" * 60 )
+
+results = db.execute("select * from grades1 where name = 'ruchik' ")
+for row in results: print(row)
+print("-" * 60 )
+results = db.execute("select * from grades1 where name = 'ruchik' ")
+for row in results: print(row)
+print("-" * 65 )
+results = db.execute("select * from grades1 where score >= 90 ")
+for row in results:
+    print(row)
+print("-" * 60 )
+results = db.execute("select id, name, score from grades1 order by score desc")
+for row in results:
+    print(row)
+print("-" * 60 )
+results = db.execute("select name, score from grades1 order by score")
+for row in results:
+    print(row)
+print("-" * 60 )
+
+
+
+
+
+
+
+
+
+
 
 
